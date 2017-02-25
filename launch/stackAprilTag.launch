@@ -1,0 +1,20 @@
+<launch>
+
+
+
+<node ns="camera" name="uvc_camera_node" pkg="uvc_camera" type="uvc_camera_node" args="_camera_info_url:=file:///~/catkin_ws/src/lc_mocap/calib/ost.yaml" />
+
+<node ns="camera" name="image_proc" pkg="image_proc" type="image_proc" />
+
+<node pkg="apriltags_ros"  type="apriltag_detector_node" name="apriltag_detector" output="screen">
+  <remap from="image_rect" to="/camera/image_rect" />
+  <remap from="camera_info" to="/camera/camera_info" />
+  <param name="tag_family" type="str" value="36h11" />
+  <rosparam param="tag_descriptions">
+     [{id: 0, size: 0.163513, frame_id: tag0},
+     {id: 1, size: 0.163513, frame_id: tag1}]
+  </rosparam>
+</node>
+
+
+</launch>
